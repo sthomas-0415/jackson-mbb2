@@ -4,40 +4,63 @@
     <meta charset="UTF-8">
     <title>Jackson Area Men’s Basketball</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; background: #f5f5f5; color: #333; }
+        header { background: #990000; color: white; padding: 20px; text-align: center; }
+        nav { text-align: center; margin-top: 10px; }
+        nav a { color: #fff; margin: 0 15px; text-decoration: none; font-weight: bold; }
+        .section { padding: 20px; background: white; margin: 20px; border-radius: 8px; }
+        .top-performers { display: flex; gap: 20px; justify-content: space-around; flex-wrap: wrap; }
+        .performer { background: #eee; padding: 15px; border-radius: 6px; text-align: center; width: 200px; }
+        .banner { background: #222; color: #fff; padding: 15px; text-align: center; font-size: 1.2em; }
+    </style>
 </head>
 <body>
     <header>
         <h1>Jackson Area Men’s Basketball</h1>
         <nav>
             <a href="index.html">Home</a>
-            <a href="teams.html">Union MBB</a>
-            <a href="#about">About</a>
-            <a href="#contact">Contact</a>
+            <a href="teams_union.html">Union</a>
+            <a href="teams_lane.html">Lane</a>
+            <a href="teams_fhu.html">FHU</a>
+            <a href="stats.html">Stats</a>
+            <a href="schedule.html">Schedule</a>
+            <a href="ai_insights.html">AI Insights</a>
         </nav>
     </header>
-    <section id="welcome">
-        <h2>Welcome</h2>
-        <p>This site collects and displays stats for college basketball teams in the Jackson, TN area. It helps fans find information easily and helps teams improve using AI-driven insights.</p>
+
+    <div class="banner">
+        🏀 Next Game: Union vs Lane | August 15, 2025 – Tip-off at 7:00 PM CST
+    </div>
+
+    <section class="section">
+        <h2>Top Performers</h2>
+        <div class="top-performers">
+            <div class="performer">
+                <h3>Casey Williams</h3>
+                <p>Points: 22</p>
+                <p>Assists: 6</p>
+            </div>
+            <div class="performer">
+                <h3>Jack Shackelford</h3>
+                <p>Rebounds: 10</p>
+                <p>Blocks: 2</p>
+            </div>
+            <div class="performer">
+                <h3>Sam Youngblood</h3>
+                <p>Steals: 3</p>
+                <p>3PT: 4/5</p>
+            </div>
+        </div>
     </section>
-    <section id="mission">
-        <h2>Mission & Vision</h2>
-        <p>Our mission is to make basketball stats easy to access and understand. We aim to use AI to provide insights like team strengths, weaknesses, and game predictions.</p>
-    </section>
-    <section id="ai">
-        <h2>AI Features</h2>
+
+    <section class="section">
+        <h2>Recent Results</h2>
         <ul>
-            <li>Automatically updated stats and standings</li>
-            <li>Game and performance predictions</li>
-            <li>AI analysis of team strengths and weaknesses</li>
+            <li>Union 78 - Lane 72 (W)</li>
+            <li>FHU 65 - Union 70 (W)</li>
+            <li>Union 59 - Lane 64 (L)</li>
         </ul>
-    </section>
-    <section id="about">
-        <h2>About the Owner</h2>
-        <p>I am a computer science student interested in sports and AI. This project is part of my senior capstone to merge my passions and help the community.</p>
-    </section>
-    <section id="contact">
-        <h2>Contact Us</h2>
-        <p>Email: info@jacksonhoops.com</p>
     </section>
 </body>
 </html>
