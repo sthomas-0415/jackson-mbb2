@@ -1,1 +1,47 @@
-<!-- Homepage with countdown and navigation -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Jackson Area Men's Basketball</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body { font-family: Arial; background: #fff; text-align: center; margin: 0; padding: 0; }
+        header { background: darkred; color: white; padding: 1em; }
+        nav a { margin: 0 10px; color: white; text-decoration: none; }
+        .countdown { font-size: 1.5em; margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Jackson Area Men’s Basketball</h1>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="teams_union.html">Union</a>
+            <a href="teams_lane.html">Lane</a>
+            <a href="teams_fhu.html">FHU</a>
+            <a href="schedule.html">Schedule</a>
+            <a href="stats.html">Stats</a>
+            <a href="ai_insights.html">AI Insights</a>
+        </nav>
+    </header>
+    <div class="countdown">
+        <p>🏀 Next Game: Union vs Lane</p>
+        <p id="timer">Loading countdown...</p>
+    </div>
+    <script>
+        var countDownDate = new Date("Nov 1, 2025 19:00:00").getTime();
+        var x = setInterval(function() {
+            var now = new Date().getTime();
+            var distance = countDownDate - now;
+            var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            document.getElementById("timer").innerHTML = days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
+            if (distance < 0) {
+                clearInterval(x);
+                document.getElementById("timer").innerHTML = "Game Time!";
+            }
+        }, 1000);
+    </script>
+</body>
+</html>
