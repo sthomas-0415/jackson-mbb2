@@ -1,50 +1,244 @@
-<!DOCTYPE html>
-<html>
+Where am I pasting this ?                                                                                                                                                          <!DOCTYPE html> 
+<html lang="en">
 <head>
-    <title>Jackson Area Men's Basketball</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style>
-        body { font-family: Arial; background: #fff; text-align: center; margin: 0; padding: 0; }
-        header { background: darkred; color: white; padding: 1em; }
-        nav a { margin: 0 10px; color: white; text-decoration: none; }
-        .countdown { font-size: 1.5em; margin-top: 20px; }
-    </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Jackson Area Men’s Basketball</title>
+<style>
+  :root{
+    --primary:#8b0000;
+    --primary-2:#b3131d;
+    --bg:#0f0f12;
+    --card:#181a1f;
+    --text:#f3f4f6;
+    --muted:#a7abb3;
+    --accent:#ffd166;
+  }
+
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0;
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    background:
+      radial-gradient(1200px 600px at 20% -10%, #2b2b2f 10%, transparent 60%),
+      radial-gradient(1000px 500px at 110% 10%, #2b2b2f 10%, transparent 60%),
+      linear-gradient(180deg,#121317, #0f0f12 40%, #0a0a0c);
+    color:var(--text);
+  }
+
+  /* Header / Nav */
+  header{
+    position:sticky; top:0; z-index:50;
+    background:linear-gradient(180deg, var(--primary), var(--primary-2));
+    color:#fff;
+    box-shadow:0 8px 24px rgba(0,0,0,.35);
+  }
+  .header-inner{
+    max-width:1200px; margin:0 auto; padding:14px 18px;
+    display:flex; align-items:center; gap:24px; flex-wrap:wrap;
+  }
+  .brand{font-weight:900; letter-spacing:.3px; font-size:28px}
+  nav{display:flex; gap:14px; flex-wrap:wrap}
+  nav a{
+    color:#fff; text-decoration:none; padding:10px 12px; border-radius:10px;
+    position:relative; font-weight:600; opacity:.95;
+    transition:transform .15s ease, background .2s ease, opacity .2s ease;
+  }
+  nav a:hover{transform:translateY(-1px); background:rgba(255,255,255,.08); opacity:1}
+  nav a.active{background:#fff; color:var(--primary); box-shadow:0 6px 20px rgba(0,0,0,.2)}
+  nav a .dot{
+    position:absolute; left:10px; top:9px; width:6px; height:6px; border-radius:50%;
+    background:var(--accent); box-shadow:0 0 12px var(--accent); display:none;
+  }
+  nav a.active .dot{display:block}
+
+  /* Layout */
+  .wrap{max-width:1100px; margin:28px auto 80px; padding:0 16px}
+  .panel{
+    background:linear-gradient(180deg,#1d2027,#16181d);
+    border:1px solid #2a2e36;
+    border-radius:18px; padding:28px;
+    box-shadow:0 10px 30px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.03);
+    animation:fadeSlide .35s ease both;
+  }
+  @keyframes fadeSlide{
+    from{opacity:0; transform:translateY(8px)}
+    to{opacity:1; transform:translateY(0)}
+  }
+
+  .hero{
+    display:flex; align-items:center; gap:16px; margin-bottom:12px;
+  }
+  .ball{
+    font-size:28px; filter:drop-shadow(0 2px 6px rgba(0,0,0,.5));
+    animation: bounce 1.2s ease-in-out infinite;
+  }
+  @keyframes bounce{
+    0%,100%{transform:translateY(0)}
+    50%{transform:translateY(-6px)}
+  }
+
+  h2{margin:0 0 10px; font-size:28px; letter-spacing:.2px}
+  p{color:var(--muted); line-height:1.6; font-size:17px; margin:8px 0 0}
+
+  /* Countdown style (home) */
+  .count{
+    margin-top:14px; font-size:22px; letter-spacing:.5px;
+    background:linear-gradient(90deg, #ffffff, #ffd166 60%, #ffffff);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+    text-shadow:0 0 20px rgba(255,209,102,.15);
+  }
+
+  /* Tag chip */
+  .chip{
+    display:inline-block; background:rgba(255,255,255,.06); color:#fff;
+    padding:6px 10px; border-radius:999px; font-size:12px; letter-spacing:.4px;
+    border:1px solid rgba(255,255,255,.12); margin-bottom:12px;
+  }
+
+  /* Responsive */
+  @media (max-width:640px){
+    .brand{font-size:22px}
+    nav{gap:8px}
+    nav a{padding:8px 10px}
+    .panel{padding:20px}
+  }
+</style>
 </head>
 <body>
-    <header>
-        <h1>Jackson Area Men’s Basketball</h1>
-        <nav>
-            <a href="index.html">Home</a>
-            <a href="vision_&_mission.html">Vision & Mission</a>
-            <a href="welcome.html">Welcome</a>
-            <a href="teams_union.html">Union</a>
-            <a href="teams_lane.html">Lane</a>
-            <a href="teams_fhu.html">FHU</a>
-            <a href="schedule.html">Schedule</a>
-            <a href="stats.html">Stats</a>
-            <a href="ai_insights.html">AI Insights</a>
-            <a href="contact_us.html">Contact Us</a>
-        </nav>
-    </header>
-    <div class="countdown">
-        <p>🏀 Next Game: Union vs Lane</p>
-        <p id="timer">Loading countdown...</p>
+
+<header>
+  <div class="header-inner">
+    <div class="brand">Jackson Area Men’s Basketball</div>
+    <nav id="top-nav">
+      <a href="#" data-section="home" class="active"><span class="dot"></span>Home</a>
+      <a href="#" data-section="vision"><span class="dot"></span>Vision & Mission</a>
+      <a href="#" data-section="welcome"><span class="dot"></span>Welcome</a>
+      <a href="union.html">Union</a>
+      <a href="lane.html">Lane</a>
+      <a href="fhu.html">FHU</a>
+      <a href="schedule.html">Schedule</a>
+      <a href="stats.html">Stats</a>
+      <a href="ai-insights.html">AI Insights</a>
+      <a href="#" data-section="about"><span class="dot"></span>About the Author</a>
+      <a href="contact.html">Contact Us</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <!-- HOME -->
+  <section id="home-section" class="panel">
+    <div class="chip">Game Center</div>
+    <div class="hero">
+      <div class="ball">🏀</div>
+      <h2>Next Game: Union vs Lane</h2>
     </div>
-    <script>
-        var countDownDate = new Date("Nov 1, 2025 19:00:00").getTime();
-        var x = setInterval(function() {
-            var now = new Date().getTime();
-            var distance = countDownDate - now;
-            var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-            document.getElementById("timer").innerHTML = days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
-            if (distance < 0) {
-                clearInterval(x);
-                document.getElementById("timer").innerHTML = "Game Time!";
-            }
-        }, 1000);
-    </script>
+    <div id="countdown" class="count">Loading…</div>
+  </section>
+
+  <!-- WELCOME -->
+  <section id="welcome-section" class="panel" style="display:none;">
+    <div class="chip">Start Here</div>
+    <div class="hero">
+      <div class="ball">🎉</div>
+      <h2>Welcome to Jackson Area College Basketball</h2>
+    </div>
+    <p>
+      This site collects and displays stats for college basketball teams in the Jackson, TN area.
+      It helps fans find information easily and helps teams improve using AI-driven insights.
+    </p>
+  </section>
+
+  <!-- VISION -->
+  <section id="vision-section" class="panel" style="display:none;">
+    <div class="chip">Vision & Mission</div>
+    <div class="hero">
+      <div class="ball">🔎</div>
+      <h2>Vision and Mission</h2>
+    </div>
+    <p>
+      Our mission is to make basketball stats easy to access and understand. We aim to use AI to
+      provide insights like team strengths, weaknesses, and game predictions.
+    </p>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about-section" class="panel" style="display:none;">
+    <div class="chip">About</div>
+    <div class="hero">
+      <div class="ball">👤</div>
+      <h2>About the Owner</h2>
+    </div>
+    <p>
+      I am a computer science student interested in sports and AI. This project is part of my senior
+      capstone, which aims to merge my passions and help the community.
+    </p>
+  </section>
+</main>
+
+<script>
+  // Simple section switcher + active tab styling
+  const nav = document.getElementById('top-nav');
+  const links = [...nav.querySelectorAll('a[data-section]')];
+  const sections = {
+    home: document.getElementById('home-section'),
+    welcome: document.getElementById('welcome-section'),
+    vision: document.getElementById('vision-section'),
+    about: document.getElementById('about-section'),
+  };
+
+  function setActive(link){
+    links.forEach(a=>a.classList.remove('active'));
+    if(link) link.classList.add('active');
+  }
+
+  function showSection(name){
+    Object.values(sections).forEach(sec => sec.style.display = 'none');
+    sections[name].style.display = 'block';
+    document.title = ({
+      home: "Jackson Area Men’s Basketball",
+      welcome: "Welcome – Jackson Area Men’s Basketball",
+      vision: "Vision & Mission – Jackson Area Men’s Basketball",
+      about: "About the Owner – Jackson Area Men’s Basketball"
+    })[name] || "Jackson Area Men’s Basketball";
+  }
+
+  nav.addEventListener('click', (e)=>{
+    const target = e.target.closest('a[data-section]');
+    if(!target) return;
+    e.preventDefault();
+    const name = target.getAttribute('data-section');
+    setActive(target);
+    showSection(name);
+    // Optional hash update (nice for refresh/back)
+    history.replaceState(null, "", #${name});
+  });
+
+  // Load section from hash if present
+  const initial = (location.hash || '#home').replace('#','');
+  const startLink = links.find(a => a.getAttribute('data-section') === initial) || links[0];
+  setActive(startLink);
+  showSection(initial);
+
+  // Countdown demo (replace date with your real next game time)
+  // Example target: 2025-11-01T19:00:00 local
+  const targetDate = new Date(new Date().getFullYear(), 10, 1, 19, 0, 0); // Nov 1, 7:00 PM
+  const countdownEl = document.getElementById('countdown');
+
+  function fmt(n){ return n.toString().padStart(2, '0'); }
+  function tick(){
+    const now = new Date();
+    let diff = Math.max(0, targetDate - now);
+    const days = Math.floor(diff/86400000); diff %= 86400000;
+    const hrs = Math.floor(diff/3600000); diff %= 3600000;
+    const mins = Math.floor(diff/60000); diff %= 60000;
+    const secs = Math.floor(diff/1000);
+    countdownEl.textContent = ${days}d ${hrs}h ${fmt(mins)}m ${fmt(secs)}s;
+  }
+  tick(); setInterval(tick, 1000);
+</script>
+
 </body>
-</html>
+</html>           
