@@ -112,45 +112,41 @@
   <div class="header-inner">
     <div class="brand">Jackson Area Men’s Basketball</div>
     <nav id="top-nav">
-    <a href="index.html" class="active"><span class="dot"></span>Home</a>
-      <a href="vision.html"><span class="dot"></span>Vision & Mission</a>
-      <a href="welcome.html"><span class="dot"></span>Welcome</a>
-      <a href="union.html">Union</a>
-      <a href="lane.html">Lane</a>
-      <a href="fhu.html">FHU</a>
-      <a href="schedule.html">Schedule</a>
-      <a href="stats.html">Stats</a>
-      <a href="ai-insights.html">AI Insights</a>
-      <a href="about.html"><span class="dot"></span>About the Author</a>
-      <a href="contact.html">Contact Us</a>
-    </nav>
+    <a href="#" onclick="showSection('home')">Home</a>
+  <a href="#" onclick="showSection('vision')">Vision & Mission</a>
+  <a href="#" onclick="showSection('welcome')">Welcome</a>
+  <a href="union.html">Union</a>
+  <a href="lane.html">Lane</a>
+  <a href="fhu.html">FHU</a>
+  <a href="schedule.html">Schedule</a>
+  <a href="stats.html">Stats</a>
+  <a href="ai-insights.html">AI Insights</a>
+  <a href="#" onclick="showSection('about')">About the Author</a>
+  <a href="contact.html">Contact Us</a>
+</nav>
   </div>
 </header>
 
 <main class="wrap">
   <!-- HOME -->
   <section id="home-section" class="panel">
-    <div class="chip">Game Center</div>
-    <div class="hero">
-      <div class="ball">🏀</div>
-      <h2>Next Game: Union vs Lane</h2>
-    </div>
-    <div id="countdown" class="count">Loading…</div>
+    <h2>🏀 Next Game: Union vs Lane</h2>
+    <div id="countdown">Loading…</div>
   </section>
 
   <!-- WELCOME -->
   <section id="welcome-section" class="panel" style="display:none;">
-    <div class="chip">Start Here</div>
-    <div class="hero">
-      <div class="ball">🎉</div>
-      <h2>Welcome to Jackson Area College Basketball</h2>
-    </div>
-    <p>
-      This site collects and displays stats for college basketball teams in the Jackson, TN area.
-      It helps fans find information easily and helps teams improve using AI-driven insights.
-    </p>
+    <h2>Welcome to Jackson Area College Basketball</h2>
+    <p>This site collects and displays stats for college basketball teams in the Jackson, TN area.
+       It helps fans find information easily and helps teams improve using AI-driven insights.</p>
   </section>
 
+  <!-- VISION -->
+  <section id="vision-section" class="panel" style="display:none;">
+    <h2>Vision and Mission</h2>
+    <p>Our mission is to make basketball stats easy to access and understand. We aim to use AI to 
+       provide insights like team strengths, weaknesses, and game predictions.</p>
+  </section>
   <!-- VISION -->
   <section id="vision-section" class="panel" style="display:none;">
     <div class="chip">Vision & Mission</div>
@@ -166,15 +162,9 @@
 
   <!-- ABOUT -->
   <section id="about-section" class="panel" style="display:none;">
-    <div class="chip">About</div>
-    <div class="hero">
-      <div class="ball">👤</div>
-      <h2>About the Owner</h2>
-    </div>
-    <p>
-      I am a computer science student interested in sports and AI. This project is part of my senior
-      capstone, which aims to merge my passions and help the community.
-    </p>
+    <h2>About the Owner</h2>
+    <p>I am a computer science student interested in sports and AI. This project is part of my senior 
+       capstone, which aims to merge my passions and help the community.</p>
   </section>
 </main>
 
@@ -238,6 +228,15 @@
     countdownEl.textContent = ${days}d ${hrs}h ${fmt(mins)}m ${fmt(secs)}s;
   }
   tick(); setInterval(tick, 1000);
+  <script>
+function showSection(section) {
+  document.getElementById('home-section').style.display = 'none';
+  document.getElementById('welcome-section').style.display = 'none';
+  document.getElementById('vision-section').style.display = 'none';
+  document.getElementById('about-section').style.display = 'none';
+
+  document.getElementById(section + '-section').style.display = 'block';
+}
 </script>
 
 </body>
