@@ -1,1 +1,81 @@
-<html><head><title>ai_insights.html</title></head><body><h1>ai_insights.html</h1><p>Content coming soon.</p></body></html>
+<!DOCTYPE html>
+
+
+<section class="grid" style="margin-top:8px">
+<div class="grid grid-3">
+${renderListCard('Strengths', strengths)}
+${renderListCard('Weaknesses', weaknesses)}
+${renderListCard('Areas for Improvement', areas)}
+</div>
+</section>
+
+
+<section class="grid" style="margin-top:8px">
+<h3>Suggestions</h3>
+${renderBullets(suggestions)}
+</section>
+
+
+${keyMoments && keyMoments.length ? `
+<section class="grid" style="margin-top:8px">
+<h3>Key Moments</h3>
+<ul class="grid" style="gap:8px;list-style:none;padding:0;margin:0">
+${keyMoments.map(m => `
+<li class="row">
+<span class="pill" style="font-size:12px">${escapeHtml(m.t || 'approx')}</span>
+<span>${escapeHtml(m.note || '')}</span>
+</li>
+`).join('')}
+</ul>
+</section>` : ''}
+
+
+<section class="row" style="margin-top:8px">
+<button class="btn outline" id="copyJsonBtn">Copy JSON</button>
+<a class="btn outline" id="downloadJsonBtn" href="#">Download JSON</a>
+</section>
+`;
+
+
+// hook up actions
+const copyBtn = document.getElementById('copyJsonBtn');
+const dlBtn = document.getElementById('downloadJsonBtn');
+const jsonStr = JSON.stringify(r, null, 2);
+
+
+copyBtn.onclick = () => navigator.clipboard.writeText(jsonStr);
+dlBtn.onclick = (e) => {
+e.preventDefault();
+const url = 'data:application/json;charset=utf-8,' + encodeURIComponent(jsonStr);
+dlBtn.setAttribute('href', url);
+dlBtn.setAttribute('download', `ai-insight-${Date.now()}.json`);
+};
+}
+
+
+function renderListCard(title, items){
+return `
+<div class="card">
+<h4 style="margin-top:0">${escapeHtml(title)}</h4>
+${items && items.length ? renderBullets(items) : '<div class="muted">No items</div>'}
+</div>
+`;
+}
+
+
+function renderBullets(items){
+return `<ul class="list">${(items||[]).map(s=>`<li>${escapeHtml(String(s))}</li>`).join('')}</ul>`;
+}
+
+
+function escapeHtml(str){
+return String(str)
+.replaceAll('&','&amp;')
+.replaceAll('<','&lt;')
+.replaceAll('>','&gt;')
+.replaceAll('"','&quot;')
+.replaceAll("'",'&#039;');
+}
+</script>
+</body>
+</html>
