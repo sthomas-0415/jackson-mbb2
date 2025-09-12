@@ -5,6 +5,7 @@
   <title>Jackson Area Men's Basketball</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
+    /* Base layout */
     body { font-family: Arial, sans-serif; margin:0; background:#fff; color:#222; }
     header { background:#7b0000; color:#fff; }
     .topbar { max-width:1100px; margin:0 auto; padding:16px 20px; }
@@ -17,10 +18,63 @@
     #timer { font-size:26px; margin-top:6px; }
     .section { display:none; text-align:left; margin:24px auto 40px; padding:18px 22px; border:1px solid #eee; border-radius:10px; background:#fafafa; }
     .section h2 { margin-top:0; color:#7b0000; }
-    /* simple utility to hide all on "Home" */
-    .hidden { display:none !important; }
-    /* spacer below header bar */
     .spacer { height:6px; background:#eee; }
+
+    /* Image gallery */
+    .gallery {
+      margin: 30px auto 10px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+    }
+    .gallery figure {
+      margin:0;
+      cursor: zoom-in;
+    }
+    .gallery img {
+      width: 100%;
+      height: auto;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,.15);
+      transition: transform .25s ease;
+      display:block;
+    }
+    .gallery img:hover { transform: scale(1.03); }
+    .gallery figcaption {
+      font-size: 14px;
+      color:#555;
+      margin-top:6px;
+    }
+
+    /* Lightbox (click-to-enlarge) */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.85);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      z-index: 1000;
+    }
+    .lightbox.open { display:flex; }
+    .lightbox img {
+      max-width: 95vw;
+      max-height: 90vh;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.5);
+    }
+    .lightbox .close {
+      position: absolute;
+      top: 14px;
+      right: 18px;
+      font-size: 28px;
+      color: #fff;
+      background: transparent;
+      border: 0;
+      cursor: pointer;
+      line-height: 1;
+    }
   </style>
 </head>
 <body>
@@ -53,7 +107,27 @@
       <div id="timer">Loading countdown…</div>
     </div>
 
-    <!-- “Pages” shown below based on the URL hash -->
+    <!-- IMAGE GALLERY -->
+    <div class="gallery" id="gallery">
+      <figure>
+        <img src="images/first-picture.webp" alt="Basketball on the rim" loading="lazy">
+        <figcaption>Game moments around the rim</figcaption>
+      </figure>
+      <figure>
+        <img src="images/picture2.webp" alt="Union player driving past defender" loading="lazy">
+        <figcaption>Union pushing the pace</figcaption>
+      </figure>
+      <figure>
+        <img src="images/picture4.webp" alt="Players under the basket" loading="lazy">
+        <figcaption>Intensity in the paint</figcaption>
+      </figure>
+      <figure>
+        <img src="images/picture5.webp" alt="High-flying finish at the rim" loading="lazy">
+        <figcaption>High-flying finish</figcaption>
+      </figure>
+    </div>
+
+    <!-- “Pages” below show when tabs are clicked -->
     <section id="welcome" class="section">
       <h2>Welcome to Jackson Area College Basketball</h2>
       <p>
@@ -73,7 +147,7 @@
     <section id="owner" class="section">
       <h2>About the Owner</h2>
       <p>
-        I am a computer science student interested in sports and AI. This project is part of my
+        I am a computer science major who is interested in sports and AI. This project is part of my
         senior capstone, which aims to merge my passions and help the community.
       </p>
     </section>
@@ -85,55 +159,79 @@
     </section>
   </div>
 
+  <!-- Lightbox overlay -->
+  <div class="lightbox" id="lightbox" aria-hidden="true">
+    <button class="close" id="lightboxClose" aria-label="Close">×</button>
+    <img id="lightboxImg" alt="">
+  </div>
+
   <script>
-    // ===== Countdown (always visible) =====
+    /* ===== Countdown ===== */
     const countDownDate = new Date("Oct 25, 2025 16:00:00").getTime();
     const tick = setInterval(() => {
       const now = Date.now();
       const distance = countDownDate - now;
+      const timerEl = document.getElementById("timer");
+      if (!timerEl) return;
       if (distance <= 0) {
         clearInterval(tick);
-        document.getElementById("timer").textContent = "Game Time!";
+        timerEl.textContent = "Game Time!";
         return;
       }
       const d = Math.floor(distance / (1000 * 60 * 60 * 24));
       const h = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
       const m = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
       const s = Math.floor((distance % (1000 * 60)) / 1000);
-      document.getElementById("timer").textContent = `${d}d ${h}h ${m}m ${s}s`;
+      timerEl.textContent = `${d}d ${h}h ${m}m ${s}s`;
     }, 1000);
 
-    // ===== Simple hash router =====
+    /* ===== Simple tab/hash router ===== */
     const sections = Array.from(document.querySelectorAll(".section"));
     const navLinks = Array.from(document.querySelectorAll("#main-nav a[href^='#']"));
 
     function show(hash) {
-      // default = #home (no section visible)
       const target = (hash || "#home").toLowerCase();
-
-      // toggle sections
       sections.forEach(sec => {
         sec.style.display = (target === `#${sec.id}`) ? "block" : "none";
       });
-
-      // active link state
       navLinks.forEach(a => {
-        if (a.getAttribute("href").toLowerCase() === target) {
-          a.classList.add("active");
-        } else {
-          a.classList.remove("active");
-        }
+        if (a.getAttribute("href").toLowerCase() === target) a.classList.add("active");
+        else a.classList.remove("active");
       });
     }
-
-    // Initial load (default to #home so Welcome is hidden until clicked)
-    if (!location.hash) {
-      history.replaceState(null, "", "#home");
-    }
+    if (!location.hash) history.replaceState(null, "", "#home");
     show(location.hash);
-
-    // Handle back/forward and manual hash changes
     window.addEventListener("hashchange", () => show(location.hash));
+
+    /* ===== Lightbox behavior ===== */
+    const gallery = document.getElementById("gallery");
+    const lightbox = document.getElementById("lightbox");
+    const lightboxImg = document.getElementById("lightboxImg");
+    const lightboxClose = document.getElementById("lightboxClose");
+
+    gallery.addEventListener("click", (e) => {
+      const img = e.target.closest("img");
+      if (!img) return;
+      lightboxImg.src = img.src;
+      lightboxImg.alt = img.alt || "";
+      lightbox.classList.add("open");
+      lightbox.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+    });
+
+    function closeLightbox() {
+      lightbox.classList.remove("open");
+      lightbox.setAttribute("aria-hidden", "true");
+      lightboxImg.src = "";
+      document.body.style.overflow = "";
+    }
+    lightbox.addEventListener("click", (e) => {
+      if (e.target === lightbox) closeLightbox();
+    });
+    lightboxClose.addEventListener("click", closeLightbox);
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && lightbox.classList.contains("open")) closeLightbox();
+    });
   </script>
 </body>
 </html>
