@@ -1,1 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Union University Roster</title>
+  <script src="players.js" defer></script>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    .grid { display: flex; flex-wrap: wrap; gap: 20px; }
+    .player-card {
+      border: 1px solid #ccc;
+      padding: 15px;
+      border-radius: 10px;
+      width: 250px;
+      background-color: #f9f9f9;
+    }
+    .player-card h3 { margin-top: 0; }
+    .number { font-size: 24px; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <h1>Union University Men's Basketball Roster (2025)</h1>
+  <div id="roster" class="grid"></div>
+
+  <script>
+    const container = document.getElementById("roster");
+    unionPlayers.forEach(player => {
+      const card = document.createElement("div");
+      card.className = "player-card";
+      card.innerHTML = `
+        <div class="number">#${player.number}</div>
+        <h3>${player.name}</h3>
+        <p><strong>Position:</strong> ${player.position}</p>
+        <p><strong>Height/Weight:</strong> ${player.height} / ${player.weight}</p>
+        <p><strong>Class:</strong> ${player.class}</p>
+        <p><strong>Hometown:</strong> ${player.hometown}</p>
+        <p><strong>Previous School:</strong> ${player.previous}</p>
+        <p><strong>High School:</strong> ${player.highschool}</p>
+      `;
+      container.appendChild(card);
+    });
+  </script>
+</body>
+</html>
 
