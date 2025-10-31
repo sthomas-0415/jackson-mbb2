@@ -1,69 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Union Roster</title>
+  <meta charset="UTF-8" />
+  <title>Union University Roster</title>
+ <script src="js/players.js" defer></script>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #fafafa;
-      padding: 20px;
-    }
-    .player {
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    .grid { display: flex; flex-wrap: wrap; gap: 20px; }
+    .player-card {
       border: 1px solid #ccc;
       padding: 15px;
-      margin-bottom: 20px;
-      background: white;
       border-radius: 10px;
-      max-width: 400px;
+      width: 250px;
+      background-color: #f9f9f9;
     }
-    .player img {
-      display: block;
-      margin-bottom: 10px;
-      width: 200px;
-    }
-    .player-info {
-      margin-top: 10px;
-    }
+    .player-card h3 { margin-top: 0; }
+    .number { font-size: 24px; font-weight: bold; }
   </style>
 </head>
 <body>
-  <h1>Union Roster</h1>
-
-  <div id="players">
-    <div class="player" id="player1"></div>
-    <div class="player" id="player2"></div>
-    <div class="player" id="player3"></div>
-    <div class="player" id="player4"></div>
-    <div class="player" id="player5"></div>
-  </div>
+  <h1>Union University Men's Basketball Roster (2025)</h1>
+  <div id="roster" class="grid"></div>
 
   <script>
-
-    const players = {
-      player1: "player_1.html",
-      player2: "player_2.html",
-      player3: "player_3.html",
-      player4: "player_4.html",
-      player5: "player_5.html"
-    };
-
-    
-    for (const [id, file] of Object.entries(players)) {
-      fetch(file)
-        .then(response => {
-          if (!response.ok) throw new Error("Failed to load " + file);
-          return response.text();
-        })
-        .then(data => {
-          document.getElementById(id).innerHTML = data;
-        })
-        .catch(err => {
-          document.getElementById(id).innerHTML = `<p>Could not load ${file}</p>`;
-          console.error(err);
-        });
-    }
+    const container = document.getElementById("roster");
+    unionPlayers.forEach(player => {
+      const card = document.createElement("div");
+      card.className = "player-card";
+      card.innerHTML = `
+        <div class="number">#${player.number}</div>
+        <h3>${player.name}</h3>
+        <p><strong>Position:</strong> ${player.position}</p>
+        <p><strong>Height/Weight:</strong> ${player.height} / ${player.weight}</p>
+        <p><strong>Class:</strong> ${player.class}</p>
+        <p><strong>Hometown:</strong> ${player.hometown}</p>
+        <p><strong>Previous School:</strong> ${player.previous}</p>
+        <p><strong>High School:</strong> ${player.highschool}</p>
+      `;
+      container.appendChild(card);
+    });
   </script>
 </body>
 </html>
+
+
     
+   
